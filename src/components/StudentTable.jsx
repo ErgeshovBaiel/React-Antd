@@ -1,5 +1,5 @@
 import { Table, Input, Space, Button } from "antd";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const columns = [
   {
@@ -40,15 +40,14 @@ const StudentsTable = () => {
   const onClick = () => {
     const updatedData = [...data, user];
     setData(updatedData);
-
     localStorage.setItem("Students", JSON.stringify(updatedData));
+    setUser({ key: "", name: "", age: null, address: "" });
+  };
 
-    setUser({
-      key: "",
-      name: "",
-      age: null,
-      address: "",
-    });
+  const onDelete = () => {
+    localStorage.removeItem("Students");
+    setData([]);
+    setUser({ key: "", name: "", age: null, address: "" });
   };
 
   return (
@@ -57,33 +56,28 @@ const StudentsTable = () => {
       <Space direction="vertical" size="large">
         <Input
           value={user.key}
-          onChange={(e) => {
-            onChange(e, "key");
-          }}
+          onChange={(e) => onChange(e, "key")}
           placeholder="key"
         />
         <Input
           value={user.name}
-          onChange={(e) => {
-            onChange(e, "name");
-          }}
+          onChange={(e) => onChange(e, "name")}
           placeholder="name"
         />
         <Input
           value={user.age}
-          onChange={(e) => {
-            onChange(e, "age");
-          }}
+          onChange={(e) => onChange(e, "age")}
           placeholder="age"
         />
         <Input
           value={user.address}
-          onChange={(e) => {
-            onChange(e, "address");
-          }}
+          onChange={(e) => onChange(e, "address")}
           placeholder="address"
         />
-        <Button onClick={onClick}>Add User</Button>
+        <div className="flex gap-5">
+          <Button onClick={onClick}>Add User</Button>
+          <Button onClick={onDelete} danger>Delete</Button>
+        </div>
       </Space>
     </div>
   );
