@@ -1,8 +1,8 @@
 import { Button as AntButton} from 'antd'
 
-const Button = () => {
+const Button = ({type = "primary" , href , danger}) => {
   return (
-    <AntButton>Ok</AntButton>
+    <AntButton type={type} href={href}  danger={danger}>Ok</AntButton>
   )
 }
 
